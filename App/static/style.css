@@ -1,0 +1,47 @@
+/* static/style.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+h1 {
+    color: #2ecc71; /* Vert */
+    margin-top: 100px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Ombre légère */
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.button-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.styled-button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #2ecc71; /* Couleur verte */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.styled-button:hover {
+    background-color: #27ae60; /* Couleur verte plus foncée au survol */
+}
+
+.styled-paragraph {
+    font-family: 'Raleway', sans-serif;
+    color: #444; /* Légèrement plus clair que le gris */
+    margin: 20px 0;
+    text-align: center;
+}

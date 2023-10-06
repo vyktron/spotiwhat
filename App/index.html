@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap">
+</head>
+<body>
+    <div class="container">
+        <h1 style="font-family: 'Pacifico', cursive;">{{ title }}</h1>
+        <h2 style="font-family: 'Pacifico', cursive;">{{ liste_name }}</h2>
+        <p class="styled-paragraph">On crée la playliste de TA soirée !</p>
+        <div class="button-container">
+            {% for button_name in button_names %}
+                <form action="/show_list" method="post">
+                    <button type="submit" class="styled-button" name="button_name" value="{{ button_name }}">{{ button_name }}</button>
+                </form>
+            {% endfor %}
+        </div>
+        <div id="list-container">
+            {% if selected_list %}
+                <p class="styled-paragraph">Liste :</p>
+                <ul>
+                    {% for item in selected_list %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
