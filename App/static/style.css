@@ -38,3 +38,10 @@ h1 {
 .styled-button:hover {
     background-color: #27ae60; /* Couleur verte plus foncée au survol */
 }
+
+.styled-paragraph {
+    font-family: 'Raleway', sans-serif;
+    color: #444; /* Légèrement plus clair que le gris */
+    margin: 20px 0;
+    text-align: center;
+}
