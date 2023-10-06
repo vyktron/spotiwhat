@@ -24,8 +24,9 @@ def index():
 def show_list():
     button_name = request.form.get('button_name')
     selected_list = get_list_for_button(button_name)
-    title = "List " + button_name
-    return render_template('index.html', title=title, button_names=button_names, selected_list=selected_list)
+    title = "SpotiWHAAAAAAAAAAAAAAAT"
+    liste_name="List " + button_name
+    return render_template('index.html', title=title, liste_name=liste_name, button_names=button_names, selected_list=selected_list)
 
 def get_list_for_button(button_name):
     if button_name == 'Rap':
