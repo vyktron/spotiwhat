@@ -22,7 +22,7 @@ def mongoimport(csv_path, db_name, coll_name, connection_uri=URI) :
     with open(csv_path, 'r') as f:
         reader = csv.reader(f)
         header = next(reader)
-        
+
     csvFile = open(csv_path, 'r')
     reader = csv.DictReader(csvFile)
 
@@ -39,4 +39,4 @@ if __name__ == "__main__" :
     db_name = 'local'
     # name of mongo db collection
     coll_name = 'spotify'
-    print(mongoimport(csv_path, db_name, coll_name))
+    mongoimport(csv_path, db_name, coll_name)
