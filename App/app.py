@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import playground as pg
 import os
 
 template_path = os.path.dirname(os.path.abspath(__file__))
@@ -6,14 +7,7 @@ template_path = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__, template_folder=template_path)
 
 # Liste de noms de boutons
-button_names = ['Rap', 'Pop', 'Reggae', 'Rock', 'Mix Aléatoire']
-
-X=['1','2']
-L1 = [X, 'b', 'c', 'd', 'e']
-L2 = ['f', 'g', 'h', 'i', 'j']
-L3 = ['k', 'l', 'm', 'n', 'o']
-L4 = ['p', 'q', 'r', 's', 't']
-L5 = ['u', 'v', 'w', 'x', 'y']
+button_names = ['Rap', 'Pop', 'Electro', 'Rock', 'Country']
 
 @app.route('/')
 def index():
@@ -28,17 +22,9 @@ def show_list():
     liste_name="List " + button_name
     return render_template('index.html', title=title, liste_name=liste_name, button_names=button_names, selected_list=selected_list)
 
-def get_list_for_button(button_name):
-    if button_name == 'Rap':
-        return L1
-    elif button_name == 'Pop':
-        return L2
-    elif button_name == 'Reggae':
-        return L3
-    elif button_name == 'Rock':
-        return L4
-    elif button_name == 'Mix Aléatoire':
-        return L5
+def get_list_for_button(button_name : str):
+    infos, danceability, length = pg.front_infos(pg.get_playlist_from_genre(button_name.lower(), 5))
+    return infos
 
 if __name__ == '__main__':
     app.run(debug=True)

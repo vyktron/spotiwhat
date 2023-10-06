@@ -84,6 +84,12 @@ def get_playlist(songs, duration):
     
     return playlist
 
+def get_playlist_from_genre(genre, duration):
+    genre_list = get_genres(genre)
+    songs = get_songs(genre_list)
+    playlist = get_playlist(songs, duration)
+    return playlist
+
 # Function to prepare the data for the front end
 # It returns a preview of the playlist with the name of the songs and the artists (nb songs)
 # and the average danceability of the playlist
@@ -94,12 +100,12 @@ def front_infos(playlist, nb=10):
     for song in playlist:
         # Get the name of the songs and the artists
         if len(infos) < nb:
-            infos.append(song["trackName"] + " - " + song["artist"])
+            infos.append(song["trackName"] + " - " + song["artistName"])
         # Get the average danceability
         danceability += float(song["danceability"])
 
     # return the playlist
-    return infos, danceability
+    return infos, danceability, len(playlist)
 
 if __name__ == "__main__" :
     # path to csv file
@@ -109,7 +115,10 @@ if __name__ == "__main__" :
     # name of mongo db collection
     coll_name = 'spotify'
 
-    pop_list = get_genres("pop")
-    pop_songs = get_songs(pop_list)
-    print(len(get_playlist(pop_songs, 5)))
+    genre_list = get_genres("country")
+    songs = get_songs(genre_list)
+    playlist = get_playlist(songs, 5)
+    infos, danceability, length = front_infos(playlist)
+    print(infos)
+
 
