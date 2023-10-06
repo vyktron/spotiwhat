@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 import csv 
+import random
 
 DB_NAME = 'local'
 COLLECTION_NAME = 'spotify'
@@ -51,6 +52,27 @@ def get_songs(genre):
     songs = list(songs)
     return songs
 
+# function with a list of songs in input that return a shorter list of random songs with the sum of duration equal to the duration of wanted in hours
+def get_playlist(songs, duration):
+    # initialize the list
+    playlist = []
+    # initialize the sum of duration
+    sum = 0
+    # shuffle the list of songs
+    random.shuffle(songs)
+    # convert the duration from hours to milliseconds
+    duration = int(duration * 3600000)
+    # iterate over the list of songs
+    for song in songs:
+        # check if the sum of duration is less than 5 hours
+        if sum < duration:
+            # append the song to the playlist
+            playlist.append(song)
+            # update the sum of duration (convert the duration from string to int)
+            sum += float(song["duration_ms"])
+    return playlist
+
 # call the function with the genre in input
 songs = get_songs("pop")
+playlist = get_playlist(songs, 5)
 print(songs)
