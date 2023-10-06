@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 import csv 
+import random
 
 DB_NAME = 'local'
 COLLECTION_NAME = 'spotify'
@@ -9,13 +10,14 @@ COLLECTION_NAME = 'spotify'
 # Remember to lauch mongo server before running this script
 URI = "mongodb://root:admin@localhost:27017/?authSource=admin&readPreference=primary&ssl=false&directConnection=true"
 
+# Function that returns a connection to MongoDB
 def connection(uri=URI):
     """ Returns a connection to MongoDB
     """
     mongoClient = MongoClient(uri)
     return mongoClient
 
-
+# Function that imports a csv file to a mongo collection
 def mongoimport(csv_path, db_name, coll_name, client=connection()) :
     """ Imports a csv file at path csv_name to a mongo colection
     returns: count of the documents in the new collection
@@ -40,7 +42,19 @@ def mongoimport(csv_path, db_name, coll_name, client=connection()) :
     
     return 1
 
-# function with the genre in input that returns the list of the songs of that genre
+# Function that returns the list of the genres (the "nb" most popular ones)
+# That contains the "base_genre" in their name
+def get_genres(base_genre, client=connection(), nb=10):
+    db = client[DB_NAME]
+    collection = db[COLLECTION_NAME]
+    genres = collection.find({"genre": {"$regex": base_genre}}).distinct("genre")
+    # Get the "nb" most popular genres
+    genres = sorted(genres, key=lambda x: -collection.count_documents({"genre": x}))
+    # convert the result to a list
+    genres = list(genres)
+    return genres[:nb]
+
+# Function that takes the "genre" in input and that returns the list of the songs of that genre
 def get_songs(genre, client):
     db = client[DB_NAME]
     collection = db[COLLECTION_NAME]
@@ -49,9 +63,25 @@ def get_songs(genre, client):
     songs = list(songs)
     return songs
 
-# call the function with the genre in input
-songs = get_songs("pop")
-print(songs)
+# function with a list of songs in input that return a shorter list of random songs with the sum of duration equal to the duration of wanted in hours
+def get_playlist(songs, duration):
+    # initialize the list
+    playlist = []
+    # initialize the sum of duration
+    sum = 0
+    # shuffle the list of songs
+    random.shuffle(songs)
+    # convert the duration from hours to milliseconds
+    duration = int(duration * 3600000)
+    # iterate over the list of songs
+    for song in songs:
+        # check if the sum of duration is less than 5 hours
+        if sum < duration:
+            # append the song to the playlist
+            playlist.append(song)
+            # update the sum of duration (convert the duration from string to int)
+            sum += float(song["duration_ms"])
+    return playlist
 
 if __name__ == "__main__" :
     # path to csv file
@@ -60,5 +90,6 @@ if __name__ == "__main__" :
     db_name = 'local'
     # name of mongo db collection
     coll_name = 'spotify'
-    mongoimport(csv_path, db_name, coll_name)
+
+    print(get_genres("pop"))
 
