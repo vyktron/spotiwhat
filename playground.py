@@ -40,3 +40,17 @@ if __name__ == "__main__" :
     # name of mongo db collection
     coll_name = 'spotify'
     mongoimport(csv_path, db_name, coll_name)
+
+# function with the genre in input that returns the list of the songs of that genre
+def get_songs(genre):
+    mongoClient = MongoClient(URI)
+    db = mongoClient[DB_NAME]
+    collection = db[COLLECTION_NAME]
+    songs = collection.find({"genre": genre})
+    # convert the result to a list
+    songs = list(songs)
+    return songs
+
+# call the function with the genre in input
+songs = get_songs("pop")
+print(songs)
