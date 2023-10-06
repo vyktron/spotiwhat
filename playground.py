@@ -54,13 +54,13 @@ def get_genres(base_genre, client=connection(), nb=10):
     genres = list(genres)
     return genres[:nb]
 
-# Function that takes the "genre" in input and that returns the list of the songs of that genre
-def get_songs(genre, client):
+# Function that takes the a list of genres in input and returns a list of songs that have one of the genres in their genre
+def get_songs(genre : list, client = connection()):
     db = client[DB_NAME]
     collection = db[COLLECTION_NAME]
-    songs = collection.find({"genre": genre})
-    # convert the result to a list
-    songs = list(songs)
+    songs = []
+    for g in genre:
+        songs += list(collection.find({"genre": g}))
     return songs
 
 # function with a list of songs in input that return a shorter list of random songs with the sum of duration equal to the duration of wanted in hours
@@ -81,7 +81,25 @@ def get_playlist(songs, duration):
             playlist.append(song)
             # update the sum of duration (convert the duration from string to int)
             sum += float(song["duration_ms"])
+    
     return playlist
+
+# Function to prepare the data for the front end
+# It returns a preview of the playlist with the name of the songs and the artists (nb songs)
+# and the average danceability of the playlist
+def front_infos(playlist, nb=10):
+    infos = []
+    danceability = 0
+
+    for song in playlist:
+        # Get the name of the songs and the artists
+        if len(infos) < nb:
+            infos.append(song["trackName"] + " - " + song["artist"])
+        # Get the average danceability
+        danceability += float(song["danceability"])
+
+    # return the playlist
+    return infos, danceability
 
 if __name__ == "__main__" :
     # path to csv file
@@ -91,5 +109,7 @@ if __name__ == "__main__" :
     # name of mongo db collection
     coll_name = 'spotify'
 
-    print(get_genres("pop"))
+    pop_list = get_genres("pop")
+    pop_songs = get_songs(pop_list)
+    print(len(get_playlist(pop_songs, 5)))
 
