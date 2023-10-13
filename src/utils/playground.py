@@ -11,7 +11,7 @@ CSV_PATH = os .path.join(os.path.dirname(__file__), '../../db/spotify_db.csv')
 # header
 
 # Remember to lauch mongo server before running this script
-URI = "mongodb://root:admin@localhost:27017/?authSource=admin&readPreference=primary&ssl=false&directConnection=true"
+URI = "mongodb://root:admin@mongo:27017/"
 
 # Function that returns a connection to MongoDB
 def connection(uri=URI):
