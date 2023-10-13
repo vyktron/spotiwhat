@@ -10,7 +10,7 @@ SpotiWhat est une application informatique qui vous permet de créer facilement 
 ## Utilisation
 
     Sélectionnez un genre musical à partir de la liste proposée.
-    Parcourez la liste de chansons proposées et prévisualisez-les si nécessaire.
+    Parcourez la liste de chansons proposéesS
 
 ## Licence
 
