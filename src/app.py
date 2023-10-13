@@ -1,10 +1,7 @@
 from flask import Flask, render_template, request
-import sys
-sys.path.append('..')
-import src
-import src.utils.playground as pg
+import utils.playground as pg
 
-template_path = src.DIR + '/app'
+template_path = 'templates'
 
 app = Flask(__name__, template_folder=template_path)
 
@@ -32,3 +29,5 @@ if __name__ == '__main__':
 
     pg.mongoimport(pg.CSV_PATH, pg.DB_NAME, pg.COLL_NAME)
     app.run(debug=True)
+
+    

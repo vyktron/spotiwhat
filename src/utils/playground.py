@@ -1,12 +1,12 @@
 from pymongo import MongoClient
 import csv 
 import random
-import src
+import os
 
 
 DB_NAME = 'local'
 COLL_NAME = 'spotify'
-CSV_PATH = src.DB + '/spotify_db.csv'
+CSV_PATH = os .path.join(os.path.dirname(__file__), '../../db/spotify_db.csv')
 
 # header
 
