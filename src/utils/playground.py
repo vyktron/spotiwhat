@@ -99,7 +99,7 @@ def get_energy(playlist):
     sum = 0
     for song in playlist:
         sum += float(song["energy"])
-    return sum / len(playlist)
+    return round(sum / len(playlist), 3)
 
 # Function to prepare the data for the front end
 # It returns a preview of the playlist with the name of the songs and the artists (nb songs)
@@ -114,9 +114,9 @@ def front_infos(playlist, nb=10):
             infos.append(song["trackName"] + " - " + song["artistName"])
         # Get the average danceability
         danceability += float(song["danceability"])
-
+    energy=get_energy(playlist)
     # return the playlist
-    return infos, danceability, len(playlist)
+    return infos, danceability, energy, len(playlist)
 
 if __name__ == "__main__" :
     # path to csv file
