@@ -32,6 +32,7 @@ def get_list_for_button(button_name : str):
 if __name__ == '__main__':
 
     pg.mongoimport(pg.CSV_PATH, pg.DB_NAME, pg.COLL_NAME)
-    app.run(debug=True)
+    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    app.run(host='0.0.0.0')
 
     
