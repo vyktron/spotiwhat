@@ -94,6 +94,13 @@ def get_playlist_from_genre(genre, duration, db_name, coll_name):
     playlist = get_playlist(songs, duration)
     return playlist
 
+# Function that returns the mean of the energy of a playlist
+def get_energy(playlist):
+    sum = 0
+    for song in playlist:
+        sum += float(song["energy"])
+    return round(sum / len(playlist), 3)
+
 # Function to prepare the data for the front end
 # It returns a preview of the playlist with the name of the songs and the artists (nb songs)
 # and the average danceability of the playlist
@@ -107,9 +114,9 @@ def front_infos(playlist, nb=10):
             infos.append(song["trackName"] + " - " + song["artistName"])
         # Get the average danceability
         danceability += float(song["danceability"])
-
+    energy=get_energy(playlist)
     # return the playlist
-    return infos, danceability, len(playlist)
+    return infos, round(danceability/len(playlist),3), energy, len(playlist)
 
 if __name__ == "__main__" :
     # path to csv file

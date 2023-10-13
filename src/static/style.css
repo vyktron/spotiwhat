@@ -45,3 +45,60 @@ h1 {
     margin: 20px 0;
     text-align: center;
 }
+
+/* Style spécifique pour la playlist de musique */
+.playlist {
+    list-style: none;
+    padding: 0;
+}
+
+.playlist li {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Style pour les liens vers les styles de musique */
+.music-style-link {
+    color: #2ecc71;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.music-style-link:hover {
+    color: #27ae60;
+}
+
+/* Ajoutez ces styles pour la consommation d'énergie */
+.energy-display {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #2ecc71; /* Couleur verte */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Ajoutez ces styles pour la case "Danse" */
+.dance-display {
+    position: absolute;
+    top: 40px; /* Ajustez cette valeur pour définir la distance entre la case "energy" et la case "Danse" */
+    right: 10px;
+    background-color: #2ecc71; /* Couleur verte */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
