@@ -45,3 +45,34 @@ h1 {
     margin: 20px 0;
     text-align: center;
 }
+
+/* Style spécifique pour la playlist de musique */
+.playlist {
+    list-style: none;
+    padding: 0;
+}
+
+.playlist li {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Style pour les liens vers les styles de musique */
+.music-style-link {
+    color: #2ecc71;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.music-style-link:hover {
+    color: #27ae60;
+}
+

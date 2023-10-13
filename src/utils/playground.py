@@ -80,12 +80,11 @@ def get_playlist(songs, duration):
     for song in songs:
         # check if the sum of duration is less than 5 hours
         if sum < duration:
-            # check if the song is not already in the playlist
-            if song not in playlist:
-                # append the song to the playlist
-                playlist.append(song)
-                # update the sum of duration (convert the duration from string to int)
-                sum += float(song["duration_ms"])
+            # append the song to the playlist
+            playlist.append(song)
+            # update the sum of duration (convert the duration from string to int)
+            sum += float(song["duration_ms"])
+    
     return playlist
 
 def get_playlist_from_genre(genre, duration, db_name, coll_name):
