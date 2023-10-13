@@ -80,11 +80,12 @@ def get_playlist(songs, duration):
     for song in songs:
         # check if the sum of duration is less than 5 hours
         if sum < duration:
-            # append the song to the playlist
-            playlist.append(song)
-            # update the sum of duration (convert the duration from string to int)
-            sum += float(song["duration_ms"])
-    
+            # check if the song is not already in the playlist
+            if song not in playlist:
+                # append the song to the playlist
+                playlist.append(song)
+                # update the sum of duration (convert the duration from string to int)
+                sum += float(song["duration_ms"])
     return playlist
 
 def get_playlist_from_genre(genre, duration, db_name, coll_name):
@@ -92,6 +93,13 @@ def get_playlist_from_genre(genre, duration, db_name, coll_name):
     songs = get_songs(genre_list, db_name, coll_name)
     playlist = get_playlist(songs, duration)
     return playlist
+
+# Function that returns the mean of the energy of a playlist
+def get_energy(playlist):
+    sum = 0
+    for song in playlist:
+        sum += float(song["energy"])
+    return sum / len(playlist)
 
 # Function to prepare the data for the front end
 # It returns a preview of the playlist with the name of the songs and the artists (nb songs)
