@@ -1,9 +1,12 @@
 from pymongo import MongoClient
 import csv 
 import random
+import src
+
 
 DB_NAME = 'local'
-COLLECTION_NAME = 'spotify'
+COLL_NAME = 'spotify'
+CSV_PATH = src.DB + '/spotify_db.csv'
 
 # header
 
@@ -44,9 +47,9 @@ def mongoimport(csv_path, db_name, coll_name, client=connection()) :
 
 # Function that returns the list of the genres (the "nb" most popular ones)
 # That contains the "base_genre" in their name
-def get_genres(base_genre, client=connection(), nb=10):
-    db = client[DB_NAME]
-    collection = db[COLLECTION_NAME]
+def get_genres(base_genre, db_name, coll_name, client=connection(), nb=10):
+    db = client[db_name]
+    collection = db[coll_name]
     genres = collection.find({"genre": {"$regex": base_genre}}).distinct("genre")
     # Get the "nb" most popular genres
     genres = sorted(genres, key=lambda x: -collection.count_documents({"genre": x}))
@@ -55,9 +58,9 @@ def get_genres(base_genre, client=connection(), nb=10):
     return genres[:nb]
 
 # Function that takes the a list of genres in input and returns a list of songs that have one of the genres in their genre
-def get_songs(genre : list, client = connection()):
-    db = client[DB_NAME]
-    collection = db[COLLECTION_NAME]
+def get_songs(genre : list, db_name : str, coll_name :str, client = connection()):
+    db = client[db_name]
+    collection = db[coll_name]
     songs = []
     for g in genre:
         songs += list(collection.find({"genre": g}))
@@ -84,9 +87,9 @@ def get_playlist(songs, duration):
     
     return playlist
 
-def get_playlist_from_genre(genre, duration):
-    genre_list = get_genres(genre)
-    songs = get_songs(genre_list)
+def get_playlist_from_genre(genre, duration, db_name, coll_name):
+    genre_list = get_genres(genre, db_name, coll_name)
+    songs = get_songs(genre_list, db_name, coll_name)
     playlist = get_playlist(songs, duration)
     return playlist
 

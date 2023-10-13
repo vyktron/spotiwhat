@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request
-import playground as pg
-import os
+import sys
+sys.path.append('..')
+import src
+import src.utils.playground as pg
 
-template_path = os.path.dirname(os.path.abspath(__file__))
+template_path = src.DIR + '/app'
 
 app = Flask(__name__, template_folder=template_path)
 
@@ -23,8 +25,10 @@ def show_list():
     return render_template('index.html', title=title, liste_name=liste_name, button_names=button_names, selected_list=selected_list)
 
 def get_list_for_button(button_name : str):
-    infos, danceability, length = pg.front_infos(pg.get_playlist_from_genre(button_name.lower(), 5))
+    infos, danceability, length = pg.front_infos(pg.get_playlist_from_genre(button_name.lower(), 5, pg.DB_NAME, pg.COLL_NAME))
     return infos
 
 if __name__ == '__main__':
+
+    pg.mongoimport(pg.CSV_PATH, pg.DB_NAME, pg.COLL_NAME)
     app.run(debug=True)
