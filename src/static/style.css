@@ -89,3 +89,16 @@ h1 {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* Ajoutez ces styles pour la case "Danse" */
+.dance-display {
+    position: absolute;
+    top: 40px; /* Ajustez cette valeur pour définir la distance entre la case "energy" et la case "Danse" */
+    right: 10px;
+    background-color: #2ecc71; /* Couleur verte */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+

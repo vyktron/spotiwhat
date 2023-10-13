@@ -116,7 +116,7 @@ def front_infos(playlist, nb=10):
         danceability += float(song["danceability"])
     energy=get_energy(playlist)
     # return the playlist
-    return infos, danceability, energy, len(playlist)
+    return infos, round(danceability/len(playlist),3), energy, len(playlist)
 
 if __name__ == "__main__" :
     # path to csv file

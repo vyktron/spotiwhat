@@ -16,18 +16,18 @@ def index():
 @app.route('/show_list', methods=['POST'])
 def show_list():
     button_name = request.form.get('button_name')
-    selected_list, energy = get_list_for_button(button_name)
+    selected_list, danceability,energy = get_list_for_button(button_name)
     title = "SpotiWHAAAAAAAAAAAAAAAT"
     liste_name = "List " + button_name
 
     # Crée des liens YouTube pour chaque élément de la liste
     selected_list_with_links = [(item, f"https://www.youtube.com/results?search_query={item}") for item in selected_list]
 
-    return render_template('index.html', title=title, liste_name=liste_name, button_names=button_names, selected_list=selected_list_with_links,energy=energy)
+    return render_template('index.html', title=title, liste_name=liste_name, button_names=button_names, selected_list=selected_list_with_links,energy=energy,danceability=danceability)
 
 def get_list_for_button(button_name : str):
     infos, danceability, energy, length = pg.front_infos(pg.get_playlist_from_genre(button_name.lower(), 5, pg.DB_NAME, pg.COLL_NAME))
-    return infos,energy
+    return infos,danceability,energy
 
 if __name__ == '__main__':
 
